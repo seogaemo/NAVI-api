@@ -1,8 +1,10 @@
-# main.py
-from fastapi import FastAPI
 import uvicorn
+from fastapi import FastAPI
+
+from utils.config import Settings
 
 app = FastAPI()
+settings = Settings()
 
 
 @app.get("/")
