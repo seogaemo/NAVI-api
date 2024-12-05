@@ -1,8 +1,12 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+import os.path as osp
+from pydantic_settings import BaseSettings
+
+envPath = "../../.env"
 
 
 class Settings(BaseSettings):
     S3_URL: str
     SK_APPKEY: str
 
-    model_config = SettingsConfigDict(env_file="../.env")
+    class Config:
+        env_file = osp.exists(envPath) and envPath or None
