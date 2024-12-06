@@ -7,8 +7,7 @@ ENV PYTHONUNBUFFERED=1
 ENV POETRY_VERSION=1.4.0
 ENV POETRY_HOME="/opt/poetry"
 ENV PATH="$POETRY_HOME/bin:$PATH"
-
-WORKDIR /app
+ENV PYTHONPATH="/:$PYTHONPATH"
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends curl \
@@ -17,12 +16,12 @@ RUN apt-get update \
   && apt-get autoremove -y \
   && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml poetry.lock /app/
+WORKDIR /api
+
+COPY pyproject.toml poetry.lock /api/
 
 RUN poetry install --no-root
 
-COPY . /app
+COPY . /api
 
-WORKDIR /app/app
-
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["poetry", "run", "uvicorn", "api.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
