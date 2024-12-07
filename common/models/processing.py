@@ -11,15 +11,18 @@ class ProcessingResult(BaseModel):
     )
 
     labelCount: List[int] = Field(
-        None, description="각 라벨의 개수", example=[1, 2, 3]
+        ..., description="각 라벨의 개수", example=[1, 2, 3]
     )
 
-    points: List[Point] = Field(
-        ..., description="Processed points", example=[Point]
-    )
+    points: List[Point] = Field(..., description="Processed points")
 
     road: PedestrianRouteResponse = Field(
         ...,
         description="Pedestrian route response",
-        example=PedestrianRouteResponse,
+    )
+
+
+class ProcessingMultiResult(BaseModel):
+    results: List[ProcessingResult] = Field(
+        ..., description="Processed results"
     )
