@@ -17,14 +17,15 @@ class MainService:
     async def getMultiPedestrianRoute(
         self, data: PedestrianRouteRequest
     ) -> ProcessingMultiResult:
-        suggestion = data.model_dump()  # 추천 경로
-        suggestion.update({"searchOption": "0"})
+        suggestion = data.model_copy(update={"searchOption": "0"})  # 제안 경로
 
-        boulevard = data.model_dump()  # 대로 우선
-        boulevard.update({"searchOption": "4"})
+        boulevard = data.model_copy(
+            update={"searchOption": "10"}
+        )  # 대로 우선 경로
 
-        shortest = data.model_dump()  # 최단 + 계단 제외 경로
-        shortest.update({"searchOption": "30"})
+        shortest = data.model_copy(
+            update={"searchOption": "30"}
+        )  # 최단 + 계단 제외 경로
 
         return ProcessingMultiResult(
             suggestion=await self.getPedestrianRoute(suggestion),
@@ -60,7 +61,7 @@ class MainService:
         walkabilityIndex = 0
 
         for i in range(len(LABELS)):
-            weightOfLabel = 0.1
+            weightOfLabel = WEIGHTS["default"]
 
             try:
                 weightOfLabel = WEIGHTS[LABELS[i]]
@@ -68,6 +69,8 @@ class MainService:
                 pass
 
             walkabilityIndex += labelCount[i] * weightOfLabel
+
+        walkabilityIndex = 100 / walkabilityIndex  # Score normalization
 
         return walkabilityIndex
 
