@@ -1,4 +1,5 @@
-WEIGHTS = {  # 0 ~ 1, Default: 0.1
+WEIGHTS = {  # 0 ~ 1
+    "default": 0.1,
     "person": 0.2,
     "car": 0.2,
     "bus": 0.3,
