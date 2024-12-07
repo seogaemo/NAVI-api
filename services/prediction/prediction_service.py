@@ -32,10 +32,12 @@ class Prediction:
         예측 결과를 반환하는 함수입니다.
         """
 
+        adapter = TypeAdapter(PredictionResponse)
+
         prediction = await self.getPredictionFromDB(pointId)
 
         if prediction is not None:
-            return prediction
+            return adapter.validate_python(prediction)
 
         try:
             response = requests.get(
@@ -46,7 +48,6 @@ class Prediction:
                 print(f"Prediction API Request Failed: {response.text}")
                 raise requests.exceptions.RequestException
 
-            adapter = TypeAdapter(PredictionResponse)
             prediction = adapter.validate_python(response.json())
 
             await self.savePredictionToDB(pointId, prediction)
