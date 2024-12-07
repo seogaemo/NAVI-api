@@ -23,6 +23,14 @@ class ProcessingResult(BaseModel):
 
 
 class ProcessingMultiResult(BaseModel):
-    results: List[ProcessingResult] = Field(
-        ..., description="Processed results"
+    suggestion: ProcessingResult = Field(
+        ..., description="Suggestion route (추천 경로)"
+    )
+
+    boulevard: ProcessingResult = Field(
+        ..., description="Boulevard route (대로 우선)"
+    )
+
+    shortest: ProcessingResult = Field(
+        ..., description="Shortest route (최단 + 계단 제외 경로)"
     )
