@@ -62,3 +62,20 @@ class PedestrianRouteRequest(BaseModel):
     sort: str = Field(
         "index", description="정렬 순서 (index, custom)", example="index"
     )
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "startName": f"SUBWAY%20%ED%95%9C%EC%96%91%EB%8C%80%EC%A0%90",
+                    "startX": 127.04079334,
+                    "startY": 37.55881732,
+                    "endName": f"%EC%99%95%EC%8B%AD%EB%A6%AC%EC%97%AD%206%EB%B2%88%EC%B6%9C%EA%B5%AC",
+                    "endX": 127.03923786,
+                    "endY": 37.56117813,
+                    "endPoiId": "1134301",
+                    "searchOption": 0,
+                }
+            ]
+        }
+    }
