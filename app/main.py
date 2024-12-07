@@ -3,12 +3,13 @@ from fastapi import FastAPI
 
 from api.common.utils.config import Settings
 
-from api.routers import root
+from api.routers import pedestrian, root
 
 app = FastAPI()
 settings = Settings()
 
 app.include_router(root.router)
+app.include_router(pedestrian.router)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")

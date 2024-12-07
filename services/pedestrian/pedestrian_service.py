@@ -3,17 +3,42 @@ from pydantic import TypeAdapter
 
 from api.common.utils.config import Settings
 
-from .dtos.request import PedestrianRouteRequest
-from .dtos.response import PedestrianRouteResponse
+from api.common.models.line import LineString
+
+from api.common.dto.pedestrian.request import PedestrianRouteRequest
+from api.common.dto.pedestrian.response import PedestrianRouteResponse
 
 
-class SKPedestrian():
+class SKPedestrian:
     def __init__(self):
         self.settings = Settings()
 
-    async def getRoute(
-        self,
-        data: PedestrianRouteRequest
+    async def extractLineString(
+        self, route: PedestrianRouteResponse
+    ) -> LineString:
+        lineString = LineString(x=[], y=[], count=0, distance=0, time=0)
+
+        for feature in route.features:
+            if feature.properties.pointType == "SP":
+                lineString.x.append(feature.geometry.coordinates[0])
+                lineString.y.append(feature.geometry.coordinates[1])
+                lineString.count += 1
+                lineString.distance = feature.properties.totalDistance
+                lineString.time = feature.properties.totalTime
+
+            if feature.geometry.type == "LineString":
+                for coordinate in feature.geometry.coordinates:
+                    if coordinate == [lineString.x[-1], lineString.y[-1]]:
+                        continue
+
+                    lineString.x.append(coordinate[0])
+                    lineString.y.append(coordinate[1])
+                    lineString.count += 1
+
+        return lineString
+
+    async def getPedestrianRoute(
+        self, data: PedestrianRouteRequest
     ) -> PedestrianRouteResponse:
         """
         Tmap 보행자 경로 안내 API를 호출하여 경로 정보를 반환하는 함수입니다.
@@ -41,8 +66,17 @@ class SKPedestrian():
         }
 
         try:
-            response = requests.post(url, headers=headers, params=params, json=data.model_dump())
-            response.raise_for_status()
+            response = requests.post(
+                url,
+                headers=headers,
+                params=params,
+                json=data.model_dump(exclude_none=True),
+            )
+
+            if response.status_code != 200:
+                print(f"SK Pedestrian API Request Failed: {response.text}")
+                raise requests.exceptions.RequestException
+
             adapter = TypeAdapter(PedestrianRouteResponse)
             return adapter.validate_python(response.json())
 
