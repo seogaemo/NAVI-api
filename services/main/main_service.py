@@ -2,7 +2,7 @@ from api.common.constants.label import LABELS
 from api.common.constants.weight import WEIGHTS
 from api.common.dto.pedestrian.request import PedestrianRouteRequest
 from api.common.models.object import PredictionObject
-from api.common.models.processing import ProcessingResult
+from api.common.models.processing import ProcessingMultiResult, ProcessingResult
 from api.services.location.location_service import Location
 from api.services.pedestrian.pedestrian_service import SKPedestrian
 from api.services.prediction.prediction_service import Prediction
@@ -13,6 +13,24 @@ class MainService:
         self.pedestrian = SKPedestrian()
         self.location = Location()
         self.prediction = Prediction()
+
+    async def getMultiPedestrianRoute(
+        self, data: PedestrianRouteRequest
+    ) -> ProcessingMultiResult:
+        suggestion = data.model_dump()  # 추천 경로
+        suggestion.update({"searchOption": "0"})
+
+        boulevard = data.model_dump()  # 대로 우선
+        boulevard.update({"searchOption": "4"})
+
+        shortest = data.model_dump()  # 최단 + 계단 제외 경로
+        shortest.update({"searchOption": "30"})
+
+        return ProcessingMultiResult(
+            suggestion=await self.getPedestrianRoute(suggestion),
+            boulevard=await self.getPedestrianRoute(boulevard),
+            shortest=await self.getPedestrianRoute(shortest),
+        )
 
     async def getPedestrianRoute(
         self, data: PedestrianRouteRequest

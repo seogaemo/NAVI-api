@@ -34,4 +34,4 @@ async def get_multi_pedestrian_route(
     총 3개의 경로를 반환합니다.
     """
 
-    return "Not implemented yet"
+    return await main.getMultiPedestrianRoute(data)
