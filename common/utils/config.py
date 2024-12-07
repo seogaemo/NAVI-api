@@ -1,12 +1,19 @@
 import os.path as osp
 from pydantic_settings import BaseSettings
 
-envPath = "../../.env"
+envPath = "../.env"
 
 
 class Settings(BaseSettings):
     S3_URL: str
+
     SK_APPKEY: str
+
+    DB_NAME: str = "road"
+    DB_USER: str = "postgres"
+    DB_PASSWORD: str = "postgres"
+    DB_HOST: str = "localhost"
+    DB_PORT: str = "5432"
 
     class Config:
         env_file = osp.exists(envPath) and envPath or None

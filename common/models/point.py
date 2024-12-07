@@ -11,7 +11,9 @@ class Point(BaseModel):
     lng: float = Field(..., description="Longitude", example=126.9780)
     ele: float = Field(None, description="Elevation", example=30.0)
     time: str = Field(
-        None, description="Timestamp", example="2023-01-01T00:00:00Z"
+        None,
+        description="Timestamp",
+        example="2024-08-31T11:12:15.254556+00:00",
     )
     duration: float = Field(
         None, description="Duration in seconds", example=120.0
