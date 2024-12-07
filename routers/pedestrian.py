@@ -1,22 +1,17 @@
 from fastapi import APIRouter
 
-from api.services.location.location_service import Location
-from api.services.pedestrian.pedestrian_service import SKPedestrian
+from api.services.main.main_service import MainService
 from api.common.dto.pedestrian.request import PedestrianRouteRequest
 
 router = APIRouter(prefix="/pedestrian")
 
+main = MainService()
+
 
 @router.post("/")
 async def getPedestrianRoute(data: PedestrianRouteRequest):
-    pedestrian = SKPedestrian()
-    location = Location()
+    """
+    보행자 경로 안내 API를 호출하여 경로 정보를 반환하는 함수입니다.
+    """
 
-    route = await pedestrian.getPedestrianRoute(data)
-    lineString = await pedestrian.extractLineString(route)
-
-    points = await location.getPoints(
-        lineString.y, lineString.x, lineString.count
-    )
-
-    return {"points": points}
+    return await main.getPedestrianRoute(data)

@@ -10,12 +10,14 @@ class Location:
         self, lat: list[float], lng: list[float], count: int
     ) -> list[Point]:
         points = []
+        seen_ids = set()
 
         for i in range(count):
             point = await self.getPoint(lat[i], lng[i])
 
-            if point is not None:
+            if point is not None and point.id not in seen_ids:
                 points.append(point)
+                seen_ids.add(point.id)
 
         return points
 
