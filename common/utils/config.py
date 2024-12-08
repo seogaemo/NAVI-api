@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     DB_HOST: str = "localhost"
     DB_PORT: str = "5432"
 
-    PREDICTION_URL: str = "http://prediction:9000/detect"
+    PREDICTION_URL: str = "http://prediction:9000"
 
     class Config:
         env_file = osp.exists(envPath) and envPath or None
