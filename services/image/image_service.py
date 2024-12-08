@@ -9,7 +9,7 @@ class Image:
     def __init__(self):
         self.settings = Settings()
 
-    def getImage(self, pointId: str) -> StreamingResponse:
+    async def getImage(self, pointId: str) -> StreamingResponse:
         """
         이미지를 반환하는 함수입니다.
 
@@ -30,7 +30,7 @@ class Image:
         except requests.exceptions.RequestException as e:
             return None
 
-    def getPredictedImage(self, pointId: str) -> StreamingResponse:
+    async def getPredictedImage(self, pointId: str) -> StreamingResponse:
         """
         예측된 이미지를 반환하는 함수입니다.
 
