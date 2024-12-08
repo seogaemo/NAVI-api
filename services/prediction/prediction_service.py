@@ -41,7 +41,7 @@ class Prediction:
 
         try:
             response = requests.get(
-                f"{self.settings.PREDICTION_URL}?id={pointId}"
+                f"{self.settings.PREDICTION_URL}/detect?id={pointId}"
             )
 
             if response.status_code != 200:
