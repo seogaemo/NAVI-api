@@ -10,6 +10,7 @@ image = Image()
 @router.get(
     "/original",
     response_class=StreamingResponse,
+    description="JPEG Image",
 )
 async def get_original_images(pointId: str) -> StreamingResponse:
     """
@@ -19,7 +20,11 @@ async def get_original_images(pointId: str) -> StreamingResponse:
     return image.getImage(pointId)
 
 
-@router.get("/predicted")
+@router.get(
+    "/predicted",
+    response_class=StreamingResponse,
+    description="JPEG Image",
+)
 async def get_predicted_images(pointId: str):
     """
     예측된 이미지를 반환하는 함수입니다.
