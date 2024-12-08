@@ -4,7 +4,7 @@ from api.common.models.processing import ProcessingMultiResult, ProcessingResult
 from api.services.main.main_service import MainService
 from api.common.dto.pedestrian.request import PedestrianRouteRequest
 
-router = APIRouter(prefix="/pedestrian")
+router = APIRouter(prefix="/pedestrian", tags=["Pedestrian"])
 
 main = MainService()
 
