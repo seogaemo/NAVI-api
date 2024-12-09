@@ -1,4 +1,4 @@
-from api.common.models.point import Point
+from api.common.models.point import Point, PointWithDistance
 from api.common.utils.db import DB
 
 
@@ -18,6 +18,32 @@ class Location:
             if point is not None and point.id not in seen_ids:
                 points.append(point)
                 seen_ids.add(point.id)
+
+        return points
+
+    async def getManyPoints(
+        self, lat: float, lng: float, limit: int
+    ) -> list[PointWithDistance]:
+        rows = self.db.getNearestLocations(lat, lng, limit)
+
+        if rows is None:
+            return []
+
+        points = []
+
+        for row in rows:
+            point = PointWithDistance(
+                id=row[0],
+                lat=row[1],
+                lng=row[2],
+                ele=row[3],
+                time=row[4].isoformat(),
+                duration=row[5],
+                speed=row[6],
+                video=row[7],
+                distance=row[9],
+            )
+            points.append(point)
 
         return points
 

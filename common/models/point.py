@@ -22,3 +22,11 @@ class Point(BaseModel):
     video: str = Field(
         None, description="Path to video file", example="/path/to/video.mp4"
     )
+
+
+class PointWithDistance(Point):
+    """
+    road 데이터의 Point 정보와 거리 정보를 담는 DTO입니다.
+    """
+
+    distance: float = Field(..., description="Distance (km)", example=0.001)

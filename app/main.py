@@ -3,7 +3,7 @@ from fastapi import FastAPI
 
 from api.common.utils.config import Settings
 
-from api.routers import image, pedestrian, root
+from api.routers import image, location, pedestrian, root
 
 app = FastAPI()
 settings = Settings()
@@ -11,6 +11,7 @@ settings = Settings()
 app.include_router(root.router)
 app.include_router(pedestrian.router)
 app.include_router(image.router)
+app.include_router(location.router)
 
 
 if __name__ == "__main__":
