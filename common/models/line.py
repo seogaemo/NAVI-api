@@ -14,5 +14,5 @@ class LineString(BaseModel):
         example=[37.2781204926811, 37.2781189700618],
     )
     count: int = Field(..., description="좌표 개수", example=2)
-    distance: float = Field(..., description="총 거리 (m)", example=3000)
-    time: float = Field(..., description="총 소요시간 (초)", example=600)
+    distance: int = Field(..., description="총 거리 (m)", example=3000)
+    time: int = Field(..., description="총 소요시간 (초)", example=600)

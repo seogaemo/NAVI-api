@@ -16,6 +16,12 @@ class ProcessingResult(BaseModel):
 
     points: List[Point] = Field(..., description="Processed points")
 
+    time: int = Field(..., description="Time to reach destination (seconds)")
+
+    distance: int = Field(
+        ..., description="Distance to reach destination (meters)"
+    )
+
     road: PedestrianRouteResponse = Field(
         ...,
         description="Pedestrian route response",

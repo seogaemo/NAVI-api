@@ -53,6 +53,8 @@ class MainService:
         return ProcessingResult(
             walkablityIndex=walkabilityIndex,
             labelCount=labelCount,
+            time=lineString.time,
+            distance=lineString.distance,
             points=points,
             road=route,
         )
