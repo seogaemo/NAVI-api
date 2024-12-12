@@ -22,6 +22,8 @@ async def search_poi(
     # 장소(POI) 검색 API
 
     Tmap POI 검색 API를 사용하여 장소를 검색합니다.
+
+    https://openapi.sk.com/products/detail?linkMenuSeq=12#Querystring_Parameters
     """
 
     return await poi.search(params)

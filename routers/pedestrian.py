@@ -17,6 +17,8 @@ async def get_single_pedestrian_route(
     # 보행자 경로 안내 API (단일 버전)
 
     보행자 경로 안내 API를 호출하여 경로 정보를 반환하는 함수입니다.
+
+    https://openapi.sk.com/products/detail?svcSeq=4&menuSeq=45
     """
 
     return await main.getPedestrianRoute(data)
@@ -32,6 +34,8 @@ async def get_multi_pedestrian_route(
     보행자 경로 안내 API를 호출하여 경로 정보를 반환하는 함수입니다.
 
     총 3개의 경로를 반환합니다.
+
+    https://openapi.sk.com/products/detail?svcSeq=4&menuSeq=45
     """
 
     return await main.getMultiPedestrianRoute(data)
