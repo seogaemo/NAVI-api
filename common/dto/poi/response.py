@@ -15,6 +15,8 @@ class EvCharger(BaseModel):
     isFast: Optional[str] = Field(None, description="급속 충전 여부")
     isAvailable: Optional[str] = Field(None, description="충전기 사용 가능 여부")
 
+class EvChargers(BaseModel):
+    evCharger: List[EvCharger] = Field(..., description="충전기 목록")
 
 class NewAddress(BaseModel):
     centerLat: Optional[float] = Field(None, description="중심점 위도 좌표")
@@ -27,6 +29,8 @@ class NewAddress(BaseModel):
     roadId: Optional[str] = Field(None, description="도로명 코드")
     fullAddressRoad: Optional[str] = Field(None, description="전체 도로명 주소")
 
+class NewAddresses(BaseModel):
+    newAddress: List[NewAddress] = Field(None, description="새주소 목록")
 
 class GroupSub(BaseModel):
     subPkey: Optional[str] = Field(None, description="관심 장소(POI) 식별자")
@@ -46,6 +50,8 @@ class GroupSub(BaseModel):
     subClassNmC: Optional[str] = Field(None, description="부속 시설물의 업종 소분류명")
     subClassNmD: Optional[str] = Field(None, description="부속 시설물의 업종 세분류명")
 
+class GroupSubs(BaseModel):
+    groupSub: List[GroupSub] = Field(None, description="검색한 관심 장소(POI)의 그룹 하위 목록")
 
 class Poi(BaseModel):
     id: Optional[str] = Field(None, description="관심 장소(POI) ID")
@@ -80,9 +86,9 @@ class Poi(BaseModel):
     desc: Optional[str] = Field(None, description="검색된 관심 장소(POI)에 대한 소개")
     dataKind: Optional[str] = Field(None, description="데이터 구분자")
     zipCode: Optional[str] = Field(None, description="우편번호")
-    groupSubLists: Optional[List[GroupSub]] = Field(None, description="검색한 관심 장소(POI)의 그룹 하위 목록")
-    newAddressList: Optional[List[NewAddress]] = Field(None, description="새주소 목록")
-    evChargers: Optional[List[EvCharger]] = Field(None, description="충전기 목록")
+    groupSubLists: Optional[GroupSubs] = Field(None, description="검색한 관심 장소(POI)의 그룹 하위 목록")
+    newAddressList: Optional[NewAddresses] = Field(None, description="새주소 목록")
+    evChargers: Optional[EvChargers] = Field(None, description="충전기 목록")
 
 
 class Pois(BaseModel):
