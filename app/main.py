@@ -17,6 +17,7 @@ app.include_router(poi.router)
 
 origins = [
     "http://localhost:5173",
+    "https://navi.suk.kr"
 ]
 
 app.add_middleware(
