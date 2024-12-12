@@ -10,7 +10,7 @@ class Poi:
         self.settings = Settings()
         pass
 
-    def search(self, params: SearchParams):
+    async def search(self, params: SearchParams):
         """
         Tmap POI 검색 API를 사용하여 장소를 검색합니다.
         """
