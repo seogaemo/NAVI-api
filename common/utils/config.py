@@ -17,5 +17,7 @@ class Settings(BaseSettings):
 
     PREDICTION_URL: str = "http://prediction:9000"
 
+    CORS_ORIGIN: str = ""
+
     class Config:
         env_file = osp.exists(envPath) and envPath or None

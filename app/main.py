@@ -15,10 +15,8 @@ app.include_router(image.router)
 app.include_router(location.router)
 app.include_router(poi.router)
 
-origins = [
-    "http://localhost:5173",
-    "https://navi.suk.kr"
-]
+origins = settings.CORS_ORIGIN.split(',')
+print(f"CORS Origins: {origins}")
 
 app.add_middleware(
     CORSMiddleware,
