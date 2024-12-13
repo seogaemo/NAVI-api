@@ -72,8 +72,9 @@ class MainService:
 
             walkabilityIndex += labelCount[i] * weightOfLabel
 
-        walkabilityIndex = 100 / walkabilityIndex  # Score normalization
+        if walkabilityIndex == 0: return 0
 
+        walkabilityIndex = 100 / walkabilityIndex  # Score normalization
         return walkabilityIndex
 
     async def getLabelCount(
